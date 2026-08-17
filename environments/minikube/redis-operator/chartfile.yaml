@@ -1,5 +1,10 @@
+directory: charts
 repositories:
 - name: stable
   url: https://charts.helm.sh/stable
-requires: []
+- name: redis-operator
+  url: https://spotahome.github.io/redis-operator
+requires:
+- chart: redis-operator/redis-operator
+  version: 3.2.9
 version: 1
