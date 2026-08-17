@@ -1,0 +1,15 @@
+{
+  "apiVersion": "tanka.dev/v1alpha1",
+  "kind": "Environment",
+  "metadata": {
+    "name": "environments/minikube/core"
+  },
+  "spec": {
+    "contextNames": [
+      "minikube"
+    ],
+    "namespace": "default",
+    "resourceDefaults": {},
+    "expectVersions": {}
+  }
+}
