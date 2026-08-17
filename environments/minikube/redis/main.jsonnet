@@ -8,8 +8,14 @@ local po = import 'github.com/jsonnet-libs/prometheus-operator-libsonnet/0.86/ma
 local redisClusterName = 'redis';
 
 local config = {
-  storageClassName: 'pd-ssd-retain',
+  // minikube ships 'standard' (hostpath) as the default StorageClass.
+  // GKE uses 'pd-ssd-retain'.
+  storageClassName: 'standard',
   storage: '1Gi',
+  // Single-node minikube has no topology.kubernetes.io/zone label, so a
+  // DoNotSchedule spread constraint leaves every pod Pending. Best-effort
+  // locally, hard in multi-zone clusters.
+  topologySpreadPolicy: 'ScheduleAnyway',
   masterSpec: {
     replicas: 3,
     requests: { cpu: '100m', memory: '300Mi' },
@@ -68,7 +74,7 @@ local redisSpec = rf.spec.redis.withReplicas(config.masterSpec.replicas)
                     {
                       maxSkew: 1,
                       topologyKey: 'topology.kubernetes.io/zone',
-                      whenUnsatisfiable: 'DoNotSchedule',
+                      whenUnsatisfiable: config.topologySpreadPolicy,
                       labelSelector: {
                         matchLabels: {
                           // 'app.kubernetes.io/instance': mongoClusterName,
