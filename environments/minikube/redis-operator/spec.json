@@ -9,6 +9,7 @@
       "minikube"
     ],
     "namespace": "redis-operator",
+    "applyStrategy": "server",
     "resourceDefaults": {},
     "expectVersions": {}
   }
