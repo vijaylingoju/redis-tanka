@@ -1,0 +1,15 @@
+{
+  "apiVersion": "tanka.dev/v1alpha1",
+  "kind": "Environment",
+  "metadata": {
+    "name": "environments/minikube/redis"
+  },
+  "spec": {
+    "contextNames": [
+      "minikube"
+    ],
+    "namespace": "redis",
+    "resourceDefaults": {},
+    "expectVersions": {}
+  }
+}
